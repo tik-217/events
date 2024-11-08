@@ -1,4 +1,8 @@
-import { CreateEventSchema, JoinEventSchema } from "@/shared/api";
+import {
+  CreateEventSchema,
+  JoinEventSchema,
+  LeaveEventSchema,
+} from "@/shared/api";
 import { prisma } from "../db";
 import { isAuth, procedure, router } from "../trpc";
 import { z } from "zod";
@@ -64,4 +68,17 @@ export const eventRouter = router({
         },
       });
     }),
+  // leave: procedure
+  //   .input(LeaveEventSchema)
+  //   .use(isAuth)
+  //   .mutation(({ input, ctx: { user } }) => {
+  //     return prisma.participation.delete({
+  //       where: {
+  //         userId_eventId: {
+  //           eventId: input.id,
+  //           userId: user.id,
+  //         },
+  //       },
+  //     });
+  //   }),
 });
