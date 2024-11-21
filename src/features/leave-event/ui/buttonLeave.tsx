@@ -7,11 +7,10 @@ export const LeaveEventButton = ({
   eventIdProp: number;
   onSuccess?: () => void;
 }) => {
-  // const { mutate } = trpc.event.leave.useMutation({ onSuccess });
+  const { mutate } = trpc.event.leave.useMutation({ onSuccess });
 
   function handelLeave(eventId: number) {
-    // mutate({ id: eventId });
-    console.log(eventId);
+    mutate({ id: eventId });
   }
 
   return (

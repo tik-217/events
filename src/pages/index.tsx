@@ -2,8 +2,10 @@ import { EventCard } from "@/entities/event";
 import { JoinEventButton } from "@/features/join-event";
 import { LeaveEventButton } from "@/features/leave-event";
 import { trpc } from "@/shared/api";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
+  const { status } = useSession();
   const { data, refetch } = trpc.event.findMany.useQuery();
 
   return (
@@ -13,10 +15,17 @@ export default function Home() {
           <EventCard
             {...event}
             action={
-              event.isJoined ? (
-                <JoinEventButton eventId={event.id} onSuccess={refetch} />
+              status === "authenticated" ? (
+                !event.isJoined ? (
+                  <JoinEventButton eventId={event.id} onSuccess={refetch} />
+                ) : (
+                  <LeaveEventButton
+                    eventIdProp={event.id}
+                    onSuccess={refetch}
+                  />
+                )
               ) : (
-                <LeaveEventButton eventIdProp={event.id} onSuccess={refetch} />
+                <></>
               )
             }
           />
