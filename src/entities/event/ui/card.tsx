@@ -25,6 +25,8 @@ export const EventCard = ({
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
           fill
+          priority
+          sizes={"33vw"}
         />
       </div>
       <div className="flex-auto p-6">
